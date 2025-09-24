@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Minha Princesa ♥</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 50%, #f3e8ff 100%);
+            min-height: 100vh;
+            color: #4a4a4a;
+            overflow-x: hidden;
+        }
+
+        /* Navegação */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-item {
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            color: #8b5d84;
+            font-weight: 500;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background: #d946ef;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Seções */
+        .section {
+            display: none;
+            min-height: 100vh;
+            padding: 6rem 2rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        /* Seção Início */
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            color: #8b5a83;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: #6b5b73;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .love-message {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 2rem;
+            border-radius: 20px;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Seção Memórias */
+        .memories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .memory-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .memory-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .memory-card video {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+
+        }
+
+
+
+        .memory-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .memory-card h3 {
+            color: #b347a1;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Seção Razões */
+        .reasons-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .reason-item {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .reason-item:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .reason-number {
+            font-size: 2rem;
+            color: #d946ef;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Seção Carta */
+        .letter {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        /* Corações flutuantes */
+        .heart {
+            position: fixed;
+            color: #ff69b4;
+            font-size: 20px;
+            animation: float 6s infinite linear;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            .nav-menu {
+                gap: 1rem;
+            }
+
+            .nav-item {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .section {
+                padding: 5rem 1rem 2rem;
+            }
+
+            .memories-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .reasons-list {
+                grid-template-columns: 1fr;
+            }
+
+            .letter {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-menu {
+                gap: 0.5rem;
+            }
+
+            .nav-item {
+                padding: 0.3rem 0.6rem;
+                font-size: 0.8rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    Navegação
+    <nav class="navbar">
+        <div class="nav-container">
+            <ul class="nav-menu">
+                <li class="nav-item active" onclick="showSection('inicio')">Início</li>
+                <li class="nav-item" onclick="showSection('memorias')">Memórias</li>
+                <li class="nav-item" onclick="showSection('razoes')">Razões</li>
+                <li class="nav-item" onclick="showSection('carta')">Carta</li>
+            </ul>
+        </div>
+    </nav>
+
+    
+    <section id="inicio" class="section active">
+        <div class="hero">
+            <h1>Para Meu Bem ♥</h1>
+            <p>Mais um dos varios presentes. Espero que goste Meu Bemm </p>
+
+            <div class="love-message">
+                <h2 style="color: #8b5a83; margin-bottom: 1rem;">Meu Amor...</h2>
+                <p>Criei este site especialmente para você, para mostrar ainda mais o quanto você significa para mim.
+                    Esse site tem objetivo de te mostrar mais ainda o quanto eu gosto de ti, espero que gostes de todos
+                    esses presentes.</p>
+                <p style="margin-top: 1rem; font-style: italic;">Te ver rindo, feliz e sorrindo, me faz ser feliz 2
+                    vezes ♥</p>
+            </div>
+        </div>
+    </section>
+
+   
+    <section id="memorias" class="section">
+        <div class="hero">
+            <h1 style="color: #8b5a83;">Nossas Memórias ♥</h1>
+            <p>Momentos especiais que guardarei para sempre no meu coração</p>
+        </div>
+
+        <div class="memories-grid">
+            <div class="memory-card">
+                <img src="img/primeiro.jpeg" alt="Nosso primeiro encontro junto ">
+                <h3>Aquele Dia Especial</h3>
+                <p><strong>Data:</strong> 14 de Julho, 2025</p>
+                <p>1 vez que a gente foi assitir um filme juntos entre aspas kakk. Mas me lembro como você estava linda
+                    e eu estava um pouquito nervoso mas quando te vi isso mudou. Gostei muito daquele dia, de poder
+                    passar um tempo contigo e gostei de conhecer o douglas uma peste mas legal e a cibely que também é
+                    legal. Mas o que eu mais gostei naquele dia e que me fez ficar revivendo o dia na minha cabeça foi
+                    você, te ver sorrindo e rindo com seu humor quebrado e estar com você.</p>
+            </div>
+
+            <div class="memory-card">
+                <img src="img/amor.jpg" alt="aniversário">
+                <h3>Momentos juntos</h3>
+                <p><strong>Data:</strong> 30 de Agosto, 2025</p>
+                <p>De primeiro, já quero agradecer de novo pelo meu aniversário. Praia contigo com a Naira e o Nakamura,
+                    foi muito bom. Esse dia foi a 1 vez que a gente tirou uma fonte juntos, meio forçado, sim, kakk, mas
+                    as fotos ficaram muito boas. Podem ser coisas bobas, mas o bolo e o chaveiro são coisas que eu me
+                    apego e eu gostei demais do chaveiro já deixo na mochila e o bolo que estava muito bom mesmo se
+                    despedaçando kakak, mas o importante não é algo material, mas sim as pessoas que estavam e amei
+                    passar o resto do meu aniversário com minha namorada e meus amigos. Obrigado.</p>
+            </div>
+
+            <div class="memory-card">
+                <video controls>
+                    <source src="video/video.mp4" alt="Nosso primeiro">
+                    Seu navegador não suporta vídeos HTML5.
+                </video>
+                <source src="video/video.mp4" alt="Nosso primeiro">
+                <h3>1 vez que saímos juntos </h3>
+                <p><strong>Data:</strong> 23 de Julho, 2025</p>
+                <p>Acredito que aqui foi onde tudo começou. Eu estava bem nervoso e com muita dúvida em te chamar para
+                    ir para praia, achando que tu poderias não aceitar. Mas não custava tentar e graças a Deus que tu
+                    aceitou Mesmo com o esforço que foi para chegar na praia, acredito que tenha sido um dia ótimo, bom
+                    eu espero. Nesse dia, foi a 1 vez que a gente começou a andar de mãos dadas, pode ser até bobo, mas
+                    eu não parei de pensar nisso depois e só imaginava quando ea te ver de novo e se ea segurar tua mão
+                    de Novo ou se poderia rolar algo entre a gente. Graças a Deus, rolou sim.</p>
+            </div>
+
+            <div class="memory-card">
+                <video controls>
+                    <source src="video/amo.mp4" alt="Nosso momentos">
+                </video>
+                </video>
+                <h3>Nossos Momentos Simples</h3>
+                <p><strong>Sempre:</strong> Todos os dias</p>
+                <p>São esses momentos simples como te ver dançar uma musica de kpop mas te ver feliz são muito
+                    maravilhosos. Te ver assim se divertindo, rindo descontraida e alegre é uma felicidade e uma calma
+                    que não sei explicar mas so sei que gosto muito. Mesmo que diga que é baitolage kakk mas goste de
+                    ficar te olhando e pensando "Deus por favor abençõe a gente que tudo possa dar certo e abençõe ela e
+                    que ela possa conseguir tudo que ela deseja e que queira e nunca tire essa a felicidade o jeito dela
+                    de ser que todos nos amamos e desculpa o palavrão senhor mais KARALHO QUE MENINA LINDA E GOSTOSA
+                    TAMBÉM". </p>
+            </div>
+        </div>
+    </section>
+
+ 
+    <section id="razoes" class="section">
+        <div class="hero">
+            <h1 style="color: #8b5a83;">Por Que Te Amo ♥</h1>
+            <p>Mil razões não seriam suficientes, mas aqui estão algumas...</p>
+        </div>
+
+        <div class="reasons-list">
+            <div class="reason-item">
+                <div class="reason-number">1</div>
+                <h3>Seu Sorriso</h3>
+                <p>Seu sorriso ilumina meu dia e faz todos os problemas desaparecerem.
+                </p>
+            </div>
+
+            <div class="reason-item">
+                <div class="reason-number">2</div>
+                <h3>Seu jeito de ser </h3>
+                <p>Você é uma pessoa maravilhosa, seu carisma, sua bondade, sua timidez, e sua alegria são algumas
+                    coisas que formam você e são coisas maravilhosas em você.</p>
+            </div>
+
+            <div class="reason-item">
+                <div class="reason-number">3</div>
+                <h3>Sua Inteligência</h3>
+                <p>Admiro sua inteligência mesmo que pense que possa não ser inteligente mas é bem mais inteligente do
+                    que pensa e quando se esforçar consegue ir longe .</p>
+            </div>
+
+            <div class="reason-item">
+                <div class="reason-number">4</div>
+                <h3>Seu Carinho</h3>
+                <p>Seu carinho é umas das coisas que mais gosto em você, mesmo que as vezes não demonstre tanto mas é
+                    bem carinhosa não so comigo mas com as outras pessoas também e isso é umas das varias que eu gosto
+                    muito em Você.</p>
+            </div>
+
+            <div class="reason-item">
+                <div class="reason-number">5</div>
+                <h3>Paciência</h3>
+                <p> Mesmo sendo uma pessoa que não tem a maior paciência do mundo mas ainda é bem paciente comigo e eu
+                    agradeço muito. E não so comigo acredito com as outras pessoas também.</p>
+            </div>
+
+            <div class="reason-item">
+                <div class="reason-number">6</div>
+                <h3>Seu humor</h3>
+                <p>Seu humor, mesmo sendo bem quebrado, é uma das coisas mais marcantes em você. Ver você rindo de coisas bestas, mesmo sendo bem engraçado, me tras uma calma também. NUNCA perca esse humor que é tão marcante em você.</p>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="carta" class="section">
+        <div class="hero">
+            <h1 style="color: #8b5a83;">Uma Carta Para Você ♥</h1>
+            <p>Palavras do meu coração...</p>
+        </div>
+
+        <div class="letter">
+            <p><strong>Meu bem</strong></p>
+
+            <p></p>
+
+            <p>Você não é apenas minha namorada, você é minha melhor amiga, uma pessoa incrivel e maravilhosa. Uma pessoa que todos amam 
+                e querem perto. Com você tudo mudou.
+            </p>
+            <p>Admiro sua inteligência, a sua paciência e a forma única como você vê a vida. Você é meu pensamento quando eu acordo e o ultimo pensamento ao dormir. Seu sorriso é capaz de transformar meu dia difícil no ar de esperança .</p>
+
+            <p>Quero que saiba que, não importa o que aconteça, estarei sempre ao seu lado. Nos momentos de alegria, vou
+                celebrar com você. Nos momentos difíceis, vou te dar minha mão e enfrentaremos juntos.</p>
+
+            <p>Obrigado por ser essa pessoa maravilhosa que é. Obrigado por aceitar minhas imperfeições e meu jeito. Você é meu presente mais precioso.</p>
+
+            <p>Este site é apenas uma pequena demonstração do que eu sinto por você. Desculpa não ser o melhor namorado possível, mas tento sempre te fazer feliz e especial. Desculpa se estou sendo muito apressado, mas esse é o meu jeito de ser, mesmo que infelizmente não seja muito bom. Você foi o presente a Deus que eu sempre pedi. Bom, eu acho que o site acaba por aqui, espero que goste realmente desse presente e, se ver tudo que tenho certeza que vai e se gostar mesmo desse presente e dos vários outros que eu já te dei, amanhã me dê um abraço e um beijo e me fale o que você sentiu ao ver esse presente.  </p>
+
+            <p style="margin-top: 2rem;"><strong>Com todo meu amor,</strong></p>
+            <p style="margin-top: 1rem; font-style: italic;">Gabriel Gomes ♥</p>
+
+            <p style="margin-top: 2rem; text-align: center; color: #d946ef; font-size: 1.2rem;"><strong>TE AMO! ♥</strong></p>
+        </div>
+    </section>
+
+    <script>
+        // Função para mostrar seções
+        function showSection(sectionId) {
+            // Esconder todas as seções
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Remover classe active de todos os itens do menu
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Mostrar seção selecionada
+            document.getElementById(sectionId).classList.add('active');
+
+            // Adicionar classe active ao item do menu clicado
+            event.target.classList.add('active');
+        }
+
+        // Função para criar corações flutuantes
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '♥';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 3 + 's';
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+
+        // Criar corações a cada 3 segundos
+        setInterval(createHeart, 3000);
+
+        // Criar alguns corações iniciais
+        for (let i = 0; i < 3; i++) {
+            setTimeout(createHeart, i * 1000);
+        }
+    </script>
+</body>
+
+</html>
